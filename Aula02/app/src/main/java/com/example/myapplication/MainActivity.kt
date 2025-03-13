@@ -30,32 +30,27 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MyApplicationTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Modifier.padding(innerPadding)
+                val produto1 = Produto(1, "Notebook", 4500.0, 5)
+                val produto2 = Produto(2, "Mouse Gamer", 250.0, 10)
 
-                    val produto1 = Produto(1, "Notebook", 4500.0, 5)
-                    val produto2 = Produto(2, "Mouse Gamer", 250.0, 10)
+                // Criando cliente
+                val cliente = Cliente(1, "Ana", 5000.0)
 
-                    // Criando cliente
-                    val cliente = Cliente(1, "Ana", 5000.0)
+                // Criando carrinho e loja
+                val carrinho = CarrinhoDeCompras()
+                val loja = Loja(listOf(produto1, produto2))
 
-                    // Criando carrinho e loja
-                    val carrinho = CarrinhoDeCompras()
-                    val loja = Loja(listOf(produto1, produto2))
+                // Adicionando produtos ao carrinho
+                carrinho.adicionarProduto(produto1, 1)
+                carrinho.adicionarProduto(produto2, 2)
 
-                    // Adicionando produtos ao carrinho
-                    carrinho.adicionarProduto(produto1, 1)
-                    carrinho.adicionarProduto(produto2, 2)
+                Column (modifier = Modifier.padding(top = 80.dp)) {
 
-                    Column {
-                        Modifier.padding(top = 16.dp)
+                    // Exibindo o carrinho
+                    carrinho.ExibirCarrinho()
 
-                        // Exibindo o carrinho
-                        carrinho.ExibirCarrinho()
-
-                        // Tentando finalizar a compra
-                        loja.FinalizarCompra(cliente, carrinho)
-                    }
+                    // Tentando finalizar a compra
+                    loja.FinalizarCompra(cliente, carrinho)
                 }
             }
         }
